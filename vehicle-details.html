@@ -18,11 +18,11 @@
                     </div>
                 </a>
                 <ul class="nav-links">
-                    <li><a href="index.html#home">Home</a></li>
-                    <li><a href="index.html#stocklist">Stocklist</a></li>
-                    <li><a href="index.html#request-car">Request A Car</a></li>
-                    <li><a href="index.html#sell-car">Sell Your Car</a></li>
-                    <li><a href="index.html#part-exchange">Part Exchange</a></li>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="inventory.html">Stocklist</a></li>
+                    <li><a href="request-car.html">Request A Car</a></li>
+                    <li><a href="sell-car.html">Sell Your Car</a></li>
+                    <li><a href="part-exchange.html">Part Exchange</a></li>
                     <li><a href="index.html#about">About Us</a></li>
                     <li><a href="index.html#reviews">Reviews</a></li>
                     <li><a href="index.html#find-us">Find Us</a></li>
@@ -32,29 +32,83 @@
         </div>
     </nav>
 
-    <section class="vehicle-details">
+    <section class="vehicle-details" style="padding-top: 120px; background: #0F0F0F;">
         <div class="container">
-            <div class="details-grid">
-                <div class="gallery">
-                    <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1200" alt="BMW">
-                </div>
-                <div class="details-info">
-                    <h1>2019 BMW 3 Series M Sport</h1>
-                    <div class="price">£18,995</div>
-                    <p class="finance">From £295/month</p>
-                    
-                    <div class="specs-list">
-                        <div class="spec-item"><strong>Year:</strong> 2019</div>
-                        <div class="spec-item"><strong>Mileage:</strong> 42,000 Miles</div>
-                        <div class="spec-item"><strong>Fuel:</strong> Petrol</div>
-                        <div class="spec-item"><strong>Transmission:</strong> Automatic</div>
-                        <div class="spec-item"><strong>Engine:</strong> 2.0L</div>
-                        <div class="spec-item"><strong>Color:</strong> Black</div>
+            <nav style="margin-bottom: 30px; color: #BFBFBF; font-size: 14px;">
+                <a href="index.html" style="color: #007BFF; text-decoration: none;">Home</a> &gt; 
+                <a href="inventory.html" style="color: #007BFF; text-decoration: none;">Vehicles</a> &gt; 
+                <span>2024 Renault Trafic</span>
+            </nav>
+            
+            <div class="details-grid" style="grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: start;">
+                <div>
+                    <div class="gallery" style="margin-bottom: 30px;">
+                        <img src="https://images.unsplash.com/photo-1527786356703-4b100091cd2c?w=1200" alt="Vehicle" style="width: 100%; border-radius: 12px;">
                     </div>
                     
-                    <div class="action-buttons">
-                        <a href="contact.html" class="btn-primary">Enquire Now</a>
-                        <a href="contact.html" class="btn-secondary">Book Test Drive</a>
+                    <div style="background: #1A1A1A; padding: 40px; border-radius: 12px; margin-bottom: 30px;">
+                        <h2 style="font-family: 'Montserrat', sans-serif; font-size: 32px; margin-bottom: 20px; color: #FFFFFF;">Vehicle Details</h2>
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <tr style="border-bottom: 1px solid #2A2A2A;">
+                                <td style="padding: 15px 0; color: #BFBFBF;">Year of Manufacture</td>
+                                <td style="padding: 15px 0; color: #FFFFFF; text-align: right; font-weight: 600;">2024</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #2A2A2A;">
+                                <td style="padding: 15px 0; color: #BFBFBF;">Mileage</td>
+                                <td style="padding: 15px 0; color: #007BFF; text-align: right; font-weight: 600;">11,000 Miles</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #2A2A2A;">
+                                <td style="padding: 15px 0; color: #BFBFBF;">Engine Size</td>
+                                <td style="padding: 15px 0; color: #FFFFFF; text-align: right; font-weight: 600;">2000 CC</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #2A2A2A;">
+                                <td style="padding: 15px 0; color: #BFBFBF;">Fuel Type</td>
+                                <td style="padding: 15px 0; color: #FFFFFF; text-align: right; font-weight: 600;">Diesel</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #2A2A2A;">
+                                <td style="padding: 15px 0; color: #BFBFBF;">Transmission</td>
+                                <td style="padding: 15px 0; color: #FFFFFF; text-align: right; font-weight: 600;">Automatic</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #2A2A2A;">
+                                <td style="padding: 15px 0; color: #BFBFBF;">Body Type</td>
+                                <td style="padding: 15px 0; color: #FFFFFF; text-align: right; font-weight: 600;">Minibus</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #2A2A2A;">
+                                <td style="padding: 15px 0; color: #BFBFBF;">Color</td>
+                                <td style="padding: 15px 0; color: #FFFFFF; text-align: right; font-weight: 600;">Grey</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 15px 0; color: #BFBFBF;">Seats</td>
+                                <td style="padding: 15px 0; color: #FFFFFF; text-align: right; font-weight: 600;">9 Seats</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <div style="position: sticky; top: 120px;">
+                    <div style="background: #1A1A1A; padding: 40px; border-radius: 12px; margin-bottom: 20px;">
+                        <h1 style="font-family: 'Montserrat', sans-serif; font-size: 28px; margin-bottom: 20px; color: #FFFFFF;">2024 Renault Trafic 2.0 Auto</h1>
+                        <div class="price" style="font-size: 36px; color: #007BFF; margin-bottom: 10px;">£24,995 + VAT</div>
+                        <p style="color: #BFBFBF; margin-bottom: 30px;">9 Seats | Grey | Minibus</p>
+                        
+                        <div style="margin-bottom: 30px;">
+                            <p style="color: #FFFFFF; line-height: 1.8; margin-bottom: 20px;">Premium 9-seater minibus with automatic transmission. Perfect for families or businesses requiring spacious and reliable transportation.</p>
+                        </div>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 15px;">
+                            <a href="tel:07942280089" class="btn-primary" style="display: block; text-align: center; padding: 15px; text-decoration: none;">📞 Call Now</a>
+                            <a href="https://wa.me/447942280089" target="_blank" class="btn-secondary" style="display: block; text-align: center; padding: 15px; text-decoration: none; background: #25D366; color: #FFFFFF; border: none;">💬 WhatsApp</a>
+                            <a href="index.html#find-us" class="btn-secondary" style="display: block; text-align: center; padding: 15px; text-decoration: none;">✉️ Send Enquiry</a>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #1A1A1A; padding: 30px; border-radius: 12px; text-align: center;">
+                        <p style="color: #BFBFBF; font-size: 14px; margin-bottom: 10px;">Share this vehicle:</p>
+                        <div style="display: flex; gap: 10px; justify-content: center;">
+                            <a href="https://wa.me/?text=Check out this vehicle" target="_blank" style="padding: 10px 20px; background: #0F0F0F; border-radius: 5px; color: #FFFFFF; text-decoration: none; font-size: 14px;">WhatsApp</a>
+                            <a href="https://www.facebook.com/sharer/sharer.php" target="_blank" style="padding: 10px 20px; background: #0F0F0F; border-radius: 5px; color: #FFFFFF; text-decoration: none; font-size: 14px;">Facebook</a>
+                            <a href="https://twitter.com/intent/tweet" target="_blank" style="padding: 10px 20px; background: #0F0F0F; border-radius: 5px; color: #FFFFFF; text-decoration: none; font-size: 14px;">Twitter</a>
+                        </div>
                     </div>
                 </div>
             </div>

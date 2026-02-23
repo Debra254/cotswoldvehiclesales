@@ -31,3 +31,20 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(el);
     });
 });
+
+function showTab(tabId) {
+    const tabs = document.querySelectorAll('.tab-content');
+    const buttons = document.querySelectorAll('.tab-btn');
+    
+    tabs.forEach(tab => tab.style.display = 'none');
+    buttons.forEach(btn => {
+        btn.style.background = '#1A1A1A';
+        btn.style.border = '1px solid #2A2A2A';
+        btn.classList.remove('active');
+    });
+    
+    document.getElementById(tabId).style.display = 'block';
+    event.target.style.background = '#007BFF';
+    event.target.style.border = 'none';
+    event.target.classList.add('active');
+}
