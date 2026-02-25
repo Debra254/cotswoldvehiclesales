@@ -23,96 +23,161 @@
                     <li><a href="request-car.html">Request A Car</a></li>
                     <li><a href="sell-car.html">Sell Your Car</a></li>
                     <li><a href="part-exchange.html">Part Exchange</a></li>
-                    <li><a href="index.html#about">About Us</a></li>
-                    <li><a href="index.html#reviews">Reviews</a></li>
-                    <li><a href="index.html#find-us">Find Us</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="testimonials.html">Reviews</a></li>
+                    <li><a href="contact.html">Find Us</a></li>
                 </ul>
-                <a href="index.html#find-us" class="cta-btn">Enquire Now</a>
+                <a href="contact.html" class="cta-btn">Enquire Now</a>
             </div>
-        </div>
     </nav>
 
     <section class="vehicle-details" style="padding-top: 120px; background: #0F0F0F;">
         <div class="container">
             <nav style="margin-bottom: 30px; color: #BFBFBF; font-size: 14px;">
-                <a href="index.html" style="color: #007BFF; text-decoration: none;">Home</a> &gt; 
-                <a href="inventory.html" style="color: #007BFF; text-decoration: none;">Vehicles</a> &gt; 
-                <span>2024 Renault Trafic</span>
+                <a href="index.html" style="color: #007BFF; text-decoration: none;">Home</a> > 
+                <a href="inventory.html" style="color: #007BFF; text-decoration: none;">Vehicles</a> > 
+                <span id="breadcrumb-title">Loading...</span>
             </nav>
             
-            <div class="details-grid" style="grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: start;">
+            <div class="details-grid" style="grid-template-columns: 1.5fr 1fr; gap: 50px; align-items: start;">
+                <!-- Left Column - Gallery & Specs -->
                 <div>
-                    <div class="gallery" style="margin-bottom: 30px;">
-                        <img src="https://images.unsplash.com/photo-1527786356703-4b100091cd2c?w=1200" alt="Vehicle" style="width: 100%; border-radius: 12px;">
+                    <div class="gallery">
+                        <div class="gallery-main">
+                            <img id="vehicle-image" src="" alt="Vehicle" style="width: 100%; border-radius: 12px;">
+                            <div class="gallery-badge badge-new" id="vehicle-badge">Available</div>
                     </div>
                     
-                    <div style="background: #1A1A1A; padding: 40px; border-radius: 12px; margin-bottom: 30px;">
-                        <h2 style="font-family: 'Montserrat', sans-serif; font-size: 32px; margin-bottom: 20px; color: #FFFFFF;">Vehicle Details</h2>
-                        <table style="width: 100%; border-collapse: collapse;">
-                            <tr style="border-bottom: 1px solid #2A2A2A;">
-                                <td style="padding: 15px 0; color: #BFBFBF;">Year of Manufacture</td>
-                                <td style="padding: 15px 0; color: #FFFFFF; text-align: right; font-weight: 600;">2024</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #2A2A2A;">
-                                <td style="padding: 15px 0; color: #BFBFBF;">Mileage</td>
-                                <td style="padding: 15px 0; color: #007BFF; text-align: right; font-weight: 600;">11,000 Miles</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #2A2A2A;">
-                                <td style="padding: 15px 0; color: #BFBFBF;">Engine Size</td>
-                                <td style="padding: 15px 0; color: #FFFFFF; text-align: right; font-weight: 600;">2000 CC</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #2A2A2A;">
-                                <td style="padding: 15px 0; color: #BFBFBF;">Fuel Type</td>
-                                <td style="padding: 15px 0; color: #FFFFFF; text-align: right; font-weight: 600;">Diesel</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #2A2A2A;">
-                                <td style="padding: 15px 0; color: #BFBFBF;">Transmission</td>
-                                <td style="padding: 15px 0; color: #FFFFFF; text-align: right; font-weight: 600;">Automatic</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #2A2A2A;">
-                                <td style="padding: 15px 0; color: #BFBFBF;">Body Type</td>
-                                <td style="padding: 15px 0; color: #FFFFFF; text-align: right; font-weight: 600;">Minibus</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #2A2A2A;">
-                                <td style="padding: 15px 0; color: #BFBFBF;">Color</td>
-                                <td style="padding: 15px 0; color: #FFFFFF; text-align: right; font-weight: 600;">Grey</td>
+                    <!-- Vehicle Features -->
+                    <div style="background: #1A1A1A; padding: 30px; border-radius: 12px; margin-bottom: 30px;">
+                        <h3 style="font-family: 'Montserrat', sans-serif; font-size: 22px; margin-bottom: 20px; color: #FFFFFF;">Features & Equipment</h3>
+                        <div id="vehicle-features" class="vehicle-features" style="grid-template-columns: repeat(2, 1fr);">
+                            <!-- Features will be populated by JavaScript -->
+                        </div>
+                    
+                    <!-- Full Specifications Table -->
+                    <div style="background: #1A1A1A; padding: 30px; border-radius: 12px; margin-bottom: 30px;">
+                        <h3 style="font-family: 'Montserrat', sans-serif; font-size: 22px; margin-bottom: 20px; color: #FFFFFF;">Vehicle Specifications</h3>
+                        <table class="specs-table" style="width: 100%; border-collapse: collapse;">
+                            <tr>
+                                <td style="padding: 15px 0; color: #888; border-bottom: 1px solid #2A2A2A;">Year of Manufacture</td>
+                                <td id="spec-year" style="padding: 15px 0; color: #FFF; text-align: right; font-weight: 600; border-bottom: 1px solid #2A2A2A;">-</td>
                             </tr>
                             <tr>
-                                <td style="padding: 15px 0; color: #BFBFBF;">Seats</td>
-                                <td style="padding: 15px 0; color: #FFFFFF; text-align: right; font-weight: 600;">9 Seats</td>
+                                <td style="padding: 15px 0; color: #888; border-bottom: 1px solid #2A2A2A;">Mileage</td>
+                                <td id="spec-mileage" style="padding: 15px 0; color: #007BFF; text-align: right; font-weight: 600; border-bottom: 1px solid #2A2A2A;">-</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 15px 0; color: #888; border-bottom: 1px solid #2A2A2A;">Engine Size</td>
+                                <td id="spec-engine" style="padding: 15px 0; color: #FFF; text-align: right; font-weight: 600; border-bottom: 1px solid #2A2A2A;">-</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 15px 0; color: #888; border-bottom: 1px solid #2A2A2A;">Fuel Type</td>
+                                <td id="spec-fuel" style="padding: 15px 0; color: #FFF; text-align: right; font-weight: 600; border-bottom: 1px solid #2A2A2A;">-</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 15px 0; color: #888; border-bottom: 1px solid #2A2A2A;">Transmission</td>
+                                <td id="spec-transmission" style="padding: 15px 0; color: #FFF; text-align: right; font-weight: 600; border-bottom: 1px solid #2A2A2A;">-</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 15px 0; color: #888; border-bottom: 1px solid #2A2A2A;">Body Type</td>
+                                <td id="spec-category" style="padding: 15px 0; color: #FFF; text-align: right; font-weight: 600; border-bottom: 1px solid #2A2A2A;">-</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 15px 0; color: #888; border-bottom: 1px solid #2A2A2A;">Colour</td>
+                                <td id="spec-color" style="padding: 15px 0; color: #FFF; text-align: right; font-weight: 600; border-bottom: 1px solid #2A2A2A;">-</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 15px 0; color: #888;">Seats</td>
+                                <td id="spec-seats" style="padding: 15px 0; color: #FFF; text-align: right; font-weight: 600;">-</td>
                             </tr>
                         </table>
                     </div>
-                </div>
                 
+                <!-- Right Column - Price & Actions -->
                 <div style="position: sticky; top: 120px;">
-                    <div style="background: #1A1A1A; padding: 40px; border-radius: 12px; margin-bottom: 20px;">
-                        <h1 style="font-family: 'Montserrat', sans-serif; font-size: 28px; margin-bottom: 20px; color: #FFFFFF;">2024 Renault Trafic 2.0 Auto</h1>
-                        <div class="price" style="font-size: 36px; color: #007BFF; margin-bottom: 10px;">£24,995 + VAT</div>
-                        <p style="color: #BFBFBF; margin-bottom: 30px;">9 Seats | Grey | Minibus</p>
+                    <div style="background: #1A1A1A; padding: 35px; border-radius: 12px; margin-bottom: 20px;">
+                        <h1 id="vehicle-title" style="font-family: 'Montserrat', sans-serif; font-size: 26px; margin-bottom: 15px; color: #FFFFFF; line-height: 1.4;">Loading...</h1>
+                        <div id="vehicle-price" class="price" style="font-size: 34px; color: #007BFF; margin-bottom: 10px;">-</div>
+                        <p id="vehicle-description" style="color: #BFBFBF; margin-bottom: 25px; font-size: 15px;">-</p>
                         
-                        <div style="margin-bottom: 30px;">
-                            <p style="color: #FFFFFF; line-height: 1.8; margin-bottom: 20px;">Premium 9-seater minibus with automatic transmission. Perfect for families or businesses requiring spacious and reliable transportation.</p>
+                        <p id="vehicle-full-description" style="color: #FFFFFF; line-height: 1.7; margin-bottom: 25px; font-size: 14px;">Please wait while we load the vehicle details...</p>
+                        
+                        <!-- Action Buttons -->
+                        <div class="vehicle-actions">
+                            <a href="tel:07942280089" class="btn-primary" style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px; font-size: 15px;">
+                                📞 Call Now
+                            </a>
+                            <a href="https://wa.me/447942280089?text=I'm interested in this vehicle" target="_blank" class="btn-secondary btn-whatsapp" style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px; font-size: 15px;">
+                                💬 WhatsApp
+                            </a>
+                            <a href="contact.html" class="btn-secondary" style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px; font-size: 15px;">
+                                ✉️ Send Enquiry
+                            </a>
+                            <button class="btn-calculate" onclick="openFinanceCalculator()" style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px; font-size: 15px; color: #FFF; background: #1A1A1A; border: 1px solid #2A2A2A; border-radius: 8px; cursor: pointer; width: 100%;">
+                                📊 Calculate Finance
+                            </button>
                         </div>
                         
-                        <div style="display: flex; flex-direction: column; gap: 15px;">
-                            <a href="tel:07942280089" class="btn-primary" style="display: block; text-align: center; padding: 15px; text-decoration: none;">📞 Call Now</a>
-                            <a href="https://wa.me/447942280089" target="_blank" class="btn-secondary" style="display: block; text-align: center; padding: 15px; text-decoration: none; background: #25D366; color: #FFFFFF; border: none;">💬 WhatsApp</a>
-                            <a href="index.html#find-us" class="btn-secondary" style="display: block; text-align: center; padding: 15px; text-decoration: none;">✉️ Send Enquiry</a>
+                        <!-- Mini Finance Calculator -->
+                        <div id="finance-calculator-mini" class="finance-calculator-mini" style="display: none; margin-top: 20px;">
+                            <h4 style="font-family: 'Montserrat', sans-serif; margin-bottom: 15px; font-size: 16px;">Quick Finance Estimate</h4>
+                            <div class="calculator-inputs">
+                                <input type="number" id="calc-price" placeholder="Vehicle Price (£)" readonly>
+                                <input type="number" id="calc-deposit" placeholder="Deposit (£)" value="2000">
+                                <select id="calc-term">
+                                    <option value="24">24 Months</option>
+                                    <option value="36">36 Months</option>
+                                    <option value="48" selected>48 Months</option>
+                                    <option value="60">60 Months</option>
+                                </select>
+                                <button class="calculate-btn" onclick="calculateMonthlyPayment()">Calculate Payment</button>
+                            </div>
+                            <div id="calc-result" class="calculator-result">
+                                <div class="result-amount">£0.00</div>
+                                <div class="result-label">per month</div>
                         </div>
+                    
+                    <!-- Share & Save -->
+                    <div style="background: #1A1A1A; padding: 25px; border-radius: 12px; margin-bottom: 20px;">
+                        <p style="color: #BFBFBF; font-size: 14px; margin-bottom: 15px;">Share this vehicle:</p>
+                        <div class="share-vehicle" style="padding-top: 0; border: none;">
+                            <a href="#" onclick="shareOnWhatsApp()" class="share-btn whatsapp" style="flex: 1;">
+                                📱 WhatsApp
+                            </a>
+                            <a href="#" onclick="shareOnFacebook()" class="share-btn" style="flex: 1;">
+                                📘 Facebook
+                            </a>
+                            <a href="#" onclick="shareOnTwitter()" class="share-btn" style="flex: 1;">
+                                🐦 Twitter
+                            </a>
+                        </div>
+                        <button onclick="toggleWishlist(this)" class="wishlist" style="position: relative; top: 0; right: 0; margin-top: 15px; width: 100%; border-radius: 8px;">
+                            ♡ Save This Vehicle
+                        </button>
                     </div>
                     
-                    <div style="background: #1A1A1A; padding: 30px; border-radius: 12px; text-align: center;">
-                        <p style="color: #BFBFBF; font-size: 14px; margin-bottom: 10px;">Share this vehicle:</p>
-                        <div style="display: flex; gap: 10px; justify-content: center;">
-                            <a href="https://wa.me/?text=Check out this vehicle" target="_blank" style="padding: 10px 20px; background: #0F0F0F; border-radius: 5px; color: #FFFFFF; text-decoration: none; font-size: 14px;">WhatsApp</a>
-                            <a href="https://www.facebook.com/sharer/sharer.php" target="_blank" style="padding: 10px 20px; background: #0F0F0F; border-radius: 5px; color: #FFFFFF; text-decoration: none; font-size: 14px;">Facebook</a>
-                            <a href="https://twitter.com/intent/tweet" target="_blank" style="padding: 10px 20px; background: #0F0F0F; border-radius: 5px; color: #FFFFFF; text-decoration: none; font-size: 14px;">Twitter</a>
-                        </div>
+                    <!-- Key Points -->
+                    <div style="background: #1A1A1A; padding: 25px; border-radius: 12px;">
+                        <h4 style="font-family: 'Montserrat', sans-serif; margin-bottom: 15px; font-size: 16px;">Why Buy From Us?</h4>
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: #888;">
+                                <span style="color: #00C853;">✓</span> 30 Years Experience
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: #888;">
+                                <span style="color: #00C853;">✓</span> Part Exchange Welcome
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: #888;">
+                                <span style="color: #00C853;">✓</span> Nationwide Delivery
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: #888;">
+                                <span style="color: #00C853;">✓</span> Extended Warranty Available
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: #888;">
+                                <span style="color: #00C853;">✓</span> Finance Specialists
+                            </div>
                     </div>
-                </div>
             </div>
-        </div>
     </section>
 
     <footer>
@@ -148,12 +213,95 @@
                         <li>Extended Warranty</li>
                     </ul>
                 </div>
-            </div>
             <div class="footer-bottom">
-                <p>© 2024 Cotswold Vehicle Sales</p>
+<p>© 2026 Cotswold Vehicle Sales</p>
             </div>
-        </div>
     </footer>
+
+    <!-- Back to Top -->
+    <div class="back-to-top" onclick="scrollToTop()">↑</div>
+
     <script src="script.js"></script>
+    <script>
+        // Finance Calculator functions specific to vehicle-details page
+        function openFinanceCalculator() {
+            const calc = document.getElementById('finance-calculator-mini');
+            const priceEl = document.getElementById('vehicle-price');
+            
+            if (calc.style.display === 'none') {
+                calc.style.display = 'block';
+                // Extract numeric price
+                if (priceEl) {
+                    const priceText = priceEl.textContent.replace(/[^0-9]/g, '');
+                    document.getElementById('calc-price').value = priceText || '0';
+                }
+            } else {
+                calc.style.display = 'none';
+            }
+        }
+        
+        function calculateMonthlyPayment() {
+            const priceInput = document.getElementById('calc-price');
+            const depositInput = document.getElementById('calc-deposit');
+            const termInput = document.getElementById('calc-term');
+            const resultDiv = document.getElementById('calc-result');
+            
+            const price = parseFloat(priceInput.value) || 0;
+            const deposit = parseFloat(depositInput.value) || 0;
+            const term = parseInt(termInput.value) || 48;
+            const interestRate = 0.075; // 7.5% APR
+            
+            const amount = price - deposit;
+            if (amount <= 0) {
+                alert('Please enter a valid deposit amount less than the vehicle price');
+                return;
+            }
+            
+            const monthlyRate = interestRate / 12;
+            const monthlyPayment = (amount * monthlyRate * Math.pow(1 + monthlyRate, term)) / (Math.pow(1 + monthlyRate, term) - 1);
+            
+            if (monthlyPayment > 0) {
+                resultDiv.innerHTML = `
+                    <div class="result-amount">£${monthlyPayment.toFixed(2)}</div>
+                    <div class="result-label">per month (${term} months)</div>
+                `;
+                resultDiv.classList.add('show');
+            }
+        }
+        
+        function shareOnWhatsApp() {
+            const title = document.getElementById('vehicle-title').textContent;
+            const price = document.getElementById('vehicle-price').textContent;
+            const url = window.location.href;
+            window.open(`https://wa.me/?text=Check out this vehicle: ${title} - ${price} ${url}`, '_blank');
+        }
+        
+        function shareOnFacebook() {
+            const url = window.location.href;
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+        }
+        
+        function shareOnTwitter() {
+            const title = document.getElementById('vehicle-title').textContent;
+            const url = window.location.href;
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`, '_blank');
+        }
+        
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Back to top button visibility
+        window.addEventListener('scroll', () => {
+            const backToTop = document.querySelector('.back-to-top');
+            if (backToTop) {
+                if (window.scrollY > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            }
+        });
+    </script>
 </body>
 </html>
