@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Cotswold Vehicle Sales</title>
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Login Overlay -->
+    <div id="loginOverlay" class="login-overlay">
+        <div class="login-box">
+            <div class="login-header">
+                <h2>🔒 Admin Access</h2>
+                <p>Enter your password to access the dashboard</p>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="adminPassword">Password</label>
+                    <input type="password" id="adminPassword" placeholder="Enter admin password" required>
+                </div>
+                <button type="submit" class="btn-login">Login</button>
+                <p id="loginError" class="login-error"></p>
+            </form>
+            <a href="index.html" class="back-link">← Back to Website</a>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="adminDashboard" class="dashboard-container" style="display: none;">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>COTSWOLD</h2>
+                <span>Admin Panel</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-section="dashboard">
+                    <span class="nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" data-section="add-vehicle">
+                    <span class="nav-icon">➕</span>
+                    <span>Add Vehicle</span>
+                </a>
+                <a href="#" class="nav-item" data-section="manage-inventory">
+                    <span class="nav-icon">🚗</span>
+                    <span>Manage Inventory</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="index.html" class="logout-btn">
+                    <span>🚪</span>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Section -->
+            <section id="dashboardSection" class="content-section active">
+                <div class="section-header">
+                    <h1>Dashboard Overview</h1>
+                    <p>Welcome to Cotswold Vehicle Sales Admin Panel</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">🚗</div>
+                        <div class="stat-info">
+                            <h3>Total Vehicles</h3>
+                            <p class="stat-number" id="totalVehicles">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💷</div>
+                        <div class="stat-info">
+                            <h3>Total Value</h3>
+                            <p class="stat-number" id="totalValue">£0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">➕</div>
+                        <div class="stat-info">
+                            <h3>Added This Month</h3>
+                            <p class="stat-number" id="addedThisMonth">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⚡</div>
+                        <div class="stat-info">
+                            <h3>Admin Vehicles</h3>
+                            <p class="stat-number" id="adminVehicles">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="quick-actions">
+                    <h2>Quick Actions</h2>
+                    <div class="actions-grid">
+                        <button class="action-card" onclick="showSection('add-vehicle')">
+                            <span class="action-icon">➕</span>
+                            <span>Add New Vehicle</span>
+                        </button>
+                        <button class="action-card" onclick="showSection('manage-inventory')">
+                            <span class="action-icon">📝</span>
+                            <span>Manage Inventory</span>
+                        </button>
+                        <button class="action-card" onclick="viewWebsite()">
+                            <span class="action-icon">🌐</span>
+                            <span>View Website</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Add Vehicle Section -->
+            <section id="addVehicleSection" class="content-section">
+                <div class="section-header">
+                    <h1>Add New Vehicle</h1>
+                    <p>Add a new vehicle to your inventory</p>
+                </div>
+                <form id="addVehicleForm" class="vehicle-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="vehicleImage">Car Image URL *</label>
+                            <input type="url" id="vehicleImage" placeholder="https://example.com/car-image.jpg" required>
+                            <small>Enter a valid image URL</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="vehicleBrand">Brand *</label>
+                            <input type="text" id="vehicleBrand" placeholder="e.g., BMW, Audi, Toyota" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="vehicleModel">Model *</label>
+                            <input type="text" id="vehicleModel" placeholder="e.g., X5, A4, Camry" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="vehicleYear">Year *</label>
+                            <input type="number" id="vehicleYear" placeholder="e.g., 2024" min="1900" max="2030" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="vehiclePrice">Price (£) *</label>
+                            <input type="number" id="vehiclePrice" placeholder="e.g., 25000" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="vehicleMileage">Mileage *</label>
+                            <input type="text" id="vehicleMileage" placeholder="e.g., 10,000 Miles" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="vehicleFuel">Fuel Type *</label>
+                            <select id="vehicleFuel" required>
+                                <option value="">Select Fuel Type</option>
+                                <option value="Petrol">Petrol</option>
+                                <option value="Diesel">Diesel</option>
+                                <option value="Hybrid">Hybrid</option>
+                                <option value="Plug-in Hybrid">Plug-in Hybrid</option>
+                                <option value="Electric">Electric</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="vehicleTransmission">Transmission</label>
+                            <select id="vehicleTransmission">
+                                <option value="Manual">Manual</option>
+                                <option value="Automatic">Automatic</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="vehicleCategory">Category</label>
+                            <select id="vehicleCategory">
+                                <option value="Hatchback">Hatchback</option>
+                                <option value="SUV">SUV</option>
+                                <option value="Saloon">Saloon</option>
+                                <option value="Estate">Estate</option>
+                                <option value="Coupe">Coupe</option>
+                                <option value="Pickup">Pickup</option>
+                                <option value="Van">Van</option>
+                                <option value="Minibus">Minibus</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="vehicleColor">Color</label>
+                            <input type="text" id="vehicleColor" placeholder="e.g., Silver, Black">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-submit">➕ Add Vehicle</button>
+                        <button type="reset" class="btn-reset">Clear Form</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Manage Inventory Section -->
+            <section id="manageInventorySection" class="content-section">
+                <div class="section-header">
+                    <h1>Manage Inventory</h1>
+                    <p>View, edit, and delete vehicles from your inventory</p>
+                </div>
+                <div class="inventory-controls">
+                    <div class="search-box">
+                        <input type="text" id="searchInventory" placeholder="Search vehicles...">
+                    </div>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="admin">Admin Added</button>
+                        <button class="filter-btn" data-filter="default">Default</button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="vehicle-table">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Brand</th>
+                                <th>Model</th>
+                                <th>Year</th>
+                                <th>Price</th>
+                                <th>Mileage</th>
+                                <th>Type</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="vehicleTableBody">
+                            <!-- Vehicle rows will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="noVehicles" class="no-vehicles" style="display: none;">
+                    <p>No vehicles found in the inventory.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Edit Vehicle Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Vehicle</h2>
+                <button class="modal-close" onclick="closeEditModal()">✕</button>
+            </div>
+            <form id="editVehicleForm">
+                <input type="hidden" id="editVehicleId">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="editVehicleImage">Car Image URL *</label>
+                        <input type="url" id="editVehicleImage" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editVehicleBrand">Brand *</label>
+                        <input type="text" id="editVehicleBrand" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editVehicleModel">Model *</label>
+                        <input type="text" id="editVehicleModel" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editVehicleYear">Year *</label>
+                        <input type="number" id="editVehicleYear" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editVehiclePrice">Price (£) *</label>
+                        <input type="number" id="editVehiclePrice" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editVehicleMileage">Mileage *</label>
+                        <input type="text" id="editVehicleMileage" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editVehicleFuel">Fuel Type *</label>
+                        <select id="editVehicleFuel" required>
+                            <option value="Petrol">Petrol</option>
+                            <option value="Diesel">Diesel</option>
+                            <option value="Hybrid">Hybrid</option>
+                            <option value="Plug-in Hybrid">Plug-in Hybrid</option>
+                            <option value="Electric">Electric</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editVehicleTransmission">Transmission</label>
+                        <select id="editVehicleTransmission">
+                            <option value="Manual">Manual</option>
+                            <option value="Automatic">Automatic</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editVehicleCategory">Category</label>
+                        <select id="editVehicleCategory">
+                            <option value="Hatchback">Hatchback</option>
+                            <option value="SUV">SUV</option>
+                            <option value="Saloon">Saloon</option>
+                            <option value="Estate">Estate</option>
+                            <option value="Coupe">Coupe</option>
+                            <option value="Pickup">Pickup</option>
+                            <option value="Van">Van</option>
+                            <option value="Minibus">Minibus</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editVehicleColor">Color</label>
+                        <input type="text" id="editVehicleColor">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit">💾 Save Changes</button>
+                    <button type="button" class="btn-cancel" onclick="closeEditModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h2>Confirm Delete</h2>
+                <button class="modal-close" onclick="closeDeleteModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this vehicle?</p>
+                <p id="deleteVehicleName" class="delete-vehicle-name"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-delete" onclick="confirmDelete()">🗑 Delete</button>
+                <button class="btn-cancel" onclick="closeDeleteModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
+

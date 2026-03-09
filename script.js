@@ -154,6 +154,55 @@ const vehicles = [
     }
 ];
 
+// Admin Storage Keys
+const ADMIN_STORAGE_KEY = 'cotswold_admin_vehicles';
+
+// Get all vehicles (default + admin added)
+function getAllVehicles() {
+    const adminVehicles = localStorage.getItem(ADMIN_STORAGE_KEY);
+    const adminVehiclesList = adminVehicles ? JSON.parse(adminVehicles) : [];
+    
+    // Combine default vehicles with admin vehicles
+    return [...vehicles, ...adminVehiclesList];
+}
+
+// Load inventory grid dynamically
+function loadInventoryGrid() {
+    const inventoryGrid = document.getElementById('inventoryGrid');
+    if (!inventoryGrid) return;
+    
+    const allVehicles = getAllVehicles();
+    
+    if (allVehicles.length === 0) {
+        inventoryGrid.innerHTML = `
+            <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px;">
+                <p style="color: #888; font-size: 18px;">No vehicles available at the moment.</p>
+            </div>
+        `;
+        return;
+    }
+    
+    inventoryGrid.innerHTML = allVehicles.map(vehicle => `
+        <div class="vehicle-card" data-id="${vehicle.id}">
+            <div class="vehicle-image">
+                <img src="${vehicle.image}" alt="${vehicle.title}" onerror="this.src='https://images.unsplash.com/photo-1527786356703-4b100091cd2c?w=800'">
+            </div>
+            <div class="vehicle-info">
+                <h3>${vehicle.title}</h3>
+                <div class="specs">
+                    <span>📅 ${vehicle.year}</span>
+                    <span>⛽ ${vehicle.fuel}</span>
+                    <span>⚙ ${vehicle.transmission || 'Manual'}</span>
+                    <span>🛣 ${vehicle.mileage}</span>
+                </div>
+                <div class="price">${vehicle.price}</div>
+                <p class="finance">${vehicle.description || 'Quality used vehicle'}</p>
+                <a href="vehicle-details.html?id=${vehicle.id}" class="btn-view">View Details</a>
+            </div>
+        </div>
+    `).join('');
+}
+
 // Load vehicle details based on URL parameter
 function loadVehicleDetails() {
     const params = new URLSearchParams(window.location.search);
@@ -161,7 +210,8 @@ function loadVehicleDetails() {
     
     if (!vehicleId) return;
     
-    const vehicle = vehicles.find(v => v.id == vehicleId);
+    const allVehicles = getAllVehicles();
+    const vehicle = allVehicles.find(v => v.id == vehicleId);
     
     if (!vehicle) {
         document.querySelector('.vehicle-details').innerHTML = `
@@ -244,7 +294,8 @@ function toggleWishlist(btn) {
 
 // Quick View Modal
 function quickView(vehicleId) {
-    const vehicle = vehicles.find(v => v.id == vehicleId);
+    const allVehicles = getAllVehicles();
+    const vehicle = allVehicles.find(v => v.id == vehicleId);
     if (!vehicle) return;
     
     const modal = document.getElementById('quickViewModal');
@@ -334,6 +385,7 @@ function calculateMonthlyPayment() {
 // Initialize on DOM ready
 document.addEventListener('DOMContentLoaded', function() {
     loadVehicleDetails();
+    loadInventoryGrid();
 });
 
 window.addEventListener('scroll', () => {
@@ -416,6 +468,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Inventory filter functionality
 document.addEventListener('DOMContentLoaded', function() {
+    // Load inventory grid first
+    loadInventoryGrid();
+    
     const filterSearchBtn = document.querySelector('.filters .btn-primary');
     const categoryFilter = document.querySelector('.filters select:nth-of-type(1)');
     const fuelFilter = document.querySelector('.filters select:nth-of-type(2)');
@@ -424,35 +479,85 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (filterSearchBtn) {
         filterSearchBtn.addEventListener('click', function() {
-            const vehicleCards = document.querySelectorAll('.vehicle-card');
             const category = categoryFilter ? categoryFilter.value : '';
             const fuel = fuelFilter ? fuelFilter.value : '';
             const transmission = transmissionFilter ? transmissionFilter.value : '';
             const price = priceFilter ? priceFilter.value : '';
             
-            let visibleCount = 0;
-            
-            vehicleCards.forEach(vehicle => {
-                let show = true;
-                
-                // Filter logic
-                if (category && category !== 'All Categories' && !vehicle.textContent.toLowerCase().includes(category.toLowerCase())) {
-                    show = false;
-                }
-                
-                if (show) {
-                    vehicle.style.display = 'block';
-                    visibleCount++;
-                } else {
-                    vehicle.style.display = 'none';
-                }
-            });
-            
-            // Update count display
-            const countDisplay = document.querySelector('.vehicle-count-display span');
-            if (countDisplay) {
-                countDisplay.textContent = visibleCount;
-            }
+            filterInventory(category, fuel, transmission, price);
         });
     }
 });
+
+// Filter inventory function
+function filterInventory(category, fuel, transmission, price) {
+    const inventoryGrid = document.getElementById('inventoryGrid');
+    if (!inventoryGrid) return;
+    
+    let allVehicles = getAllVehicles();
+    
+    // Apply filters
+    allVehicles = allVehicles.filter(vehicle => {
+        let show = true;
+        
+        // Category filter
+        if (category && category !== 'All Categories' && vehicle.category) {
+            if (!vehicle.category.toLowerCase().includes(category.toLowerCase())) {
+                show = false;
+            }
+        }
+        
+        // Fuel filter
+        if (show && fuel && fuel !== 'All Fuel Types' && vehicle.fuel) {
+            if (!vehicle.fuel.toLowerCase().includes(fuel.toLowerCase())) {
+                show = false;
+            }
+        }
+        
+        // Transmission filter
+        if (show && transmission && transmission !== 'All Transmissions' && vehicle.transmission) {
+            if (!vehicle.transmission.toLowerCase().includes(transmission.toLowerCase())) {
+                show = false;
+            }
+        }
+        
+        // Price filter
+        if (show && price && price !== 'All Prices' && vehicle.priceNum) {
+            if (price === 'Under £15k' && vehicle.priceNum >= 15000) show = false;
+            if (price === '£15k - £20k' && (vehicle.priceNum < 15000 || vehicle.priceNum > 20000)) show = false;
+            if (price === 'Over £20k' && vehicle.priceNum <= 20000) show = false;
+        }
+        
+        return show;
+    });
+    
+    // Render filtered vehicles
+    if (allVehicles.length === 0) {
+        inventoryGrid.innerHTML = `
+            <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px;">
+                <p style="color: #888; font-size: 18px;">No vehicles match your filters.</p>
+            </div>
+        `;
+        return;
+    }
+    
+    inventoryGrid.innerHTML = allVehicles.map(vehicle => `
+        <div class="vehicle-card" data-id="${vehicle.id}">
+            <div class="vehicle-image">
+                <img src="${vehicle.image}" alt="${vehicle.title}" onerror="this.src='https://images.unsplash.com/photo-1527786356703-4b100091cd2c?w=800'">
+            </div>
+            <div class="vehicle-info">
+                <h3>${vehicle.title}</h3>
+                <div class="specs">
+                    <span>📅 ${vehicle.year}</span>
+                    <span>⛽ ${vehicle.fuel}</span>
+                    <span>⚙ ${vehicle.transmission || 'Manual'}</span>
+                    <span>🛣 ${vehicle.mileage}</span>
+                </div>
+                <div class="price">${vehicle.price}</div>
+                <p class="finance">${vehicle.description || 'Quality used vehicle'}</p>
+                <a href="vehicle-details.html?id=${vehicle.id}" class="btn-view">View Details</a>
+            </div>
+        </div>
+    `).join('');
+}
