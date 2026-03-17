@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotswold Vehicle Sales - Quality Used Cars in Stonehouse</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav id="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-text">
+                        <span class="logo-main">COTSWOLD</span>
+                        <span class="logo-sub">Vehicle Sales</span>
+                    </div>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="inventory.html">Stocklist</a></li>
+                    <li><a href="request-car.html">Request A Car</a></li>
+                    <li><a href="sell-car.html">Sell Your Car</a></li>
+                    <li><a href="part-exchange.html">Part Exchange</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#reviews">Reviews</a></li>
+                    <li><a href="#find-us">Find Us</a></li>
+                    <li><a href="admin.html" style="color: #007BFF; font-weight: 600;">Admin</a></li>
+                </ul>
+                <a href="contact.html" class="cta-btn">Enquire Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="fade-up">Welcome to Cotswold Vehicle Sales</h1>
+                <p class="fade-up-delay">Premium Quality Used Cars in Stonehouse, South Gloucestershire</p>
+                <p class="fade-up-delay" style="font-size: 16px; margin-top: 10px; opacity: 0.9;">Hand-Picked Vehicles Backed by Over 30 Years of Automotive Expertise</p>
+                <div class="hero-buttons fade-up-delay-2">
+                    <a href="inventory.html" class="btn-primary">View Our Stock</a>
+                    <a href="#find-us" class="btn-secondary">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="find-fits" style="padding: 100px 0; background: #0F0F0F;">
+        <div class="container">
+            <h2 style="font-family: 'Montserrat', sans-serif; font-size: 42px; text-align: center; margin-bottom: 15px;">Find what fits you</h2>
+            <p style="text-align: center; color: #BFBFBF; margin-bottom: 50px; font-size: 18px;">We help you find a car that fits your personality, dream and pocket!</p>
+            
+            <div class="search-tabs">
+                <div class="tab-buttons" style="display: flex; gap: 10px; justify-content: center; margin-bottom: 40px;">
+                    <button class="tab-btn active" onclick="showTab('search-name', event)" style="padding: 12px 30px; background: #007BFF; color: #FFFFFF; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; transition: all 0.3s;">Search by Name</button>
+                    <button class="tab-btn" onclick="showTab('filter-brand', event)" style="padding: 12px 30px; background: #1A1A1A; color: #FFFFFF; border: 1px solid #2A2A2A; border-radius: 5px; cursor: pointer; font-weight: 600; transition: all 0.3s;">Filter by Brand</button>
+                    <button class="tab-btn" onclick="showTab('filter-body', event)" style="padding: 12px 30px; background: #1A1A1A; color: #FFFFFF; border: 1px solid #2A2A2A; border-radius: 5px; cursor: pointer; font-weight: 600; transition: all 0.3s;">Filter by Body Type</button>
+                </div>
+
+                <div id="search-name" class="tab-content" style="background: #1A1A1A; padding: 40px; border-radius: 12px; max-width: 800px; margin: 0 auto;">
+                    <form action="inventory.html" method="get">
+                        <div style="margin-bottom: 25px;">
+                            <label style="display: block; margin-bottom: 10px; color: #FFFFFF; font-weight: 600;">Search vehicle</label>
+                            <p style="color: #BFBFBF; font-size: 14px; margin-bottom: 15px;">Simply write the vehicle name and press the search button (i.e Audi or Toyota)</p>
+                            <input type="text" name="search" placeholder="Search vehicle name" style="width: 100%; padding: 15px 15px 15px 45px; background: #0F0F0F; border: 1px solid #2A2A2A; border-radius: 5px; color: #FFFFFF; font-family: 'Inter', sans-serif;">
+                        </div>
+                        <div style="margin-bottom: 25px;">
+                            <label style="display: block; margin-bottom: 15px; color: #FFFFFF; font-weight: 600;">Filter by budget</label>
+                            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                                <button type="button" class="budget-btn" style="padding: 10px 20px; background: #0F0F0F; border: 1px solid #2A2A2A; border-radius: 5px; color: #BFBFBF; cursor: pointer; transition: all 0.3s;">£0 - £5K</button>
+                                <button type="button" class="budget-btn" style="padding: 10px 20px; background: #0F0F0F; border: 1px solid #2A2A2A; border-radius: 5px; color: #BFBFBF; cursor: pointer; transition: all 0.3s;">£5K - £10K</button>
+                                <button type="button" class="budget-btn" style="padding: 10px 20px; background: #0F0F0F; border: 1px solid #2A2A2A; border-radius: 5px; color: #BFBFBF; cursor: pointer; transition: all 0.3s;">£10K - £15K</button>
+                                <button type="button" class="budget-btn" style="padding: 10px 20px; background: #0F0F0F; border: 1px solid #2A2A2A; border-radius: 5px; color: #BFBFBF; cursor: pointer; transition: all 0.3s;">£15K - £20K</button>
+                                <button type="button" class="budget-btn" style="padding: 10px 20px; background: #0F0F0F; border: 1px solid #2A2A2A; border-radius: 5px; color: #BFBFBF; cursor: pointer; transition: all 0.3s;">£20K - £30K</button>
+                                <button type="button" class="budget-btn" style="padding: 10px 20px; background: #0F0F0F; border: 1px solid #2A2A2A; border-radius: 5px; color: #BFBFBF; cursor: pointer; transition: all 0.3s;">Above £30K</button>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary" style="width: 100%;">Search</button>
+                    </form>
+                </div>
+
+                <div id="filter-brand" class="tab-content" style="display: none; max-width: 1000px; margin: 0 auto;">
+                    <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px;">
+                        <a href="inventory.html?brand=audi" style="background: #1A1A1A; padding: 30px; border-radius: 12px; text-align: center; transition: all 0.3s; border: 1px solid #2A2A2A; text-decoration: none;">
+                            <img src="audi-logo-audi-icon-free-free-vector.jpg" alt="Audi" style="width: 80px; height: 50px; margin-bottom: 10px; object-fit: contain;">
+                            <p style="color: #FFFFFF; font-weight: 600;">Audi</p>
+                        </a>
+                        <a href="inventory.html?brand=bmw" style="background: #1A1A1A; padding: 30px; border-radius: 12px; text-align: center; transition: all 0.3s; border: 1px solid #2A2A2A; text-decoration: none;">
+                            <img src="bmw.jpeg" alt="BMW" style="width: 80px; height: 50px; margin-bottom: 10px; object-fit: contain;">
+                            <p style="color: #FFFFFF; font-weight: 600;">BMW</p>
+                        </a>
+                        <a href="inventory.html?brand=mercedes" style="background: #1A1A1A; padding: 30px; border-radius: 12px; text-align: center; transition: all 0.3s; border: 1px solid #2A2A2A; text-decoration: none;">
+                            <img src="Mercedes-Benz.jpeg" alt="Mercedes" style="width: 80px; height: 50px; margin-bottom: 10px; object-fit: contain;">
+                            <p style="color: #FFFFFF; font-weight: 600;">Mercedes</p>
+                        </a>
+                        <a href="inventory.html?brand=toyota" style="background: #1A1A1A; padding: 30px; border-radius: 12px; text-align: center; transition: all 0.3s; border: 1px solid #2A2A2A; text-decoration: none;">
+                            <img src="Toyota.png" alt="Toyota" style="width: 80px; height: 50px; margin-bottom: 10px; object-fit: contain;">
+                            <p style="color: #FFFFFF; font-weight: 600;">Toyota</p>
+                        </a>
+                        <a href="inventory.html?brand=honda" style="background: #1A1A1A; padding: 30px; border-radius: 12px; text-align: center; transition: all 0.3s; border: 1px solid #2A2A2A; text-decoration: none;">
+                            <img src="Honda.jpg" alt="Honda" style="width: 80px; height: 50px; margin-bottom: 10px; object-fit: contain;">
+                            <p style="color: #FFFFFF; font-weight: 600;">Honda</p>
+                        </a>
+                        <a href="inventory.html?brand=volkswagen" style="background: #1A1A1A; padding: 30px; border-radius: 12px; text-align: center; transition: all 0.3s; border: 1px solid #2A2A2A; text-decoration: none;">
+                            <img src="Volkswagen.jpeg" alt="Volkswagen" style="width: 80px; height: 50px; margin-bottom: 10px; object-fit: contain;">
+                            <p style="color: #FFFFFF; font-weight: 600;">Volkswagen</p>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="filter-body" class="tab-content" style="display: none; max-width: 1000px; margin: 0 auto;">
+                    <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px;">
+                        <a href="inventory.html?body=suv" style="background: #1A1A1A; padding: 30px; border-radius: 12px; text-align: center; transition: all 0.3s; border: 1px solid #2A2A2A; text-decoration: none;">
+                            <img src="suv.png" alt="SUV" style="width: 80px; height: 50px; margin-bottom: 10px; object-fit: contain;">
+                            <p style="color: #FFFFFF; font-weight: 600;">SUV</p>
+                        </a>
+                        <a href="inventory.html?body=saloon" style="background: #1A1A1A; padding: 30px; border-radius: 12px; text-align: center; transition: all 0.3s; border: 1px solid #2A2A2A; text-decoration: none;">
+                            <img src="saloon.png" alt="Saloon" style="width: 80px; height: 50px; margin-bottom: 10px; object-fit: contain;">
+                            <p style="color: #FFFFFF; font-weight: 600;">Saloon</p>
+                        </a>
+                        <a href="inventory.html?body=hatchback" style="background: #1A1A1A; padding: 30px; border-radius: 12px; text-align: center; transition: all 0.3s; border: 1px solid #2A2A2A; text-decoration: none;">
+                            <img src="hatchback.png" alt="Hatchback" style="width: 80px; height: 50px; margin-bottom: 10px; object-fit: contain;">
+                            <p style="color: #FFFFFF; font-weight: 600;">Hatchback</p>
+                        </a>
+                        <a href="inventory.html?body=pickup" style="background: #1A1A1A; padding: 30px; border-radius: 12px; text-align: center; transition: all 0.3s; border: 1px solid #2A2A2A; text-decoration: none;">
+                            <img src="pickup.png" alt="Pickup" style="width: 80px; height: 50px; margin-bottom: 10px; object-fit: contain;">
+                            <p style="color: #FFFFFF; font-weight: 600;">Pickup</p>
+                        </a>
+                        <a href="inventory.html?body=coupe" style="background: #1A1A1A; padding: 30px; border-radius: 12px; text-align: center; transition: all 0.3s; border: 1px solid #2A2A2A; text-decoration: none;">
+                            <img src="coupe.png" alt="Coupe" style="width: 80px; height: 50px; margin-bottom: 10px; object-fit: contain;">
+                            <p style="color: #FFFFFF; font-weight: 600;">Coupe</p>
+                        </a>
+                        <a href="inventory.html?body=van" style="background: #1A1A1A; padding: 30px; border-radius: 12px; text-align: center; transition: all 0.3s; border: 1px solid #2A2A2A; text-decoration: none;">
+                            <img src="van.png" alt="Van" style="width: 80px; height: 50px; margin-bottom: 10px; object-fit: contain;">
+                            <p style="color: #FFFFFF; font-weight: 600;">Van</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-home" id="about">
+        <div class="container">
+            <h2>About Us</h2>
+            <div class="about-grid">
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=800" alt="Dealership">
+                </div>
+                <div class="about-content">
+                    <h3>A Family-Run Dealership You Can Trust</h3>
+                    <p>Cotswold Vehicle Sales is a small family business situated in Eastington on the edge of the Cotswolds, serving Stonehouse and the surrounding area. With over 30 years of automotive industry experience, we're passionate about delivering excellent customer service in a no-pressure environment, making your car buying experience smooth, stress-free, and enjoyable.</p>
+                    <p>Repeat customers and glowing 5★ reviews are a reflection of the care and commitment we bring to every sale.</p>
+                    <p>Our team's wealth of experience means we understand what matters most to buyers — quality, reliability, and honesty. Whether you're browsing or ready to buy, we are here to help you find the right vehicle to suit your needs and your budget.</p>
+                    <div class="about-features">
+                        <div class="feature-item">✓ 30+ Years Experience</div>
+                        <div class="feature-item">✓ Family-Run Business</div>
+                        <div class="feature-item">✓ No Pressure Sales</div>
+                        <div class="feature-item">✓ 5★ Customer Reviews</div>
+                    </div>
+                    <a href="about.html" class="btn-secondary">Learn More About Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials" id="reviews">
+        <div class="container">
+            <h2>What Our Customers Say</h2>
+            <div class="testimonial-slider">
+                <div class="testimonial-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"Great customer service… very reliable."</p>
+                    <div class="customer">Sarah Thompson</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"Rare to meet someone in the motor trade so honest."</p>
+                    <div class="customer">James Mitchell</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"Such a smooth car purchase from start to finish."</p>
+                    <div class="customer">Emma Davies</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="trust-bar">
+        <div class="container">
+            <div class="trust-items">
+                <div class="trust-item">
+                    <div class="trust-icon">✓</div>
+                    <p>30+ Years Experience</p>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">✓</div>
+                    <p>50-Mile Road Tested</p>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">✓</div>
+                    <p>Fresh Service Included</p>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">✓</div>
+                    <p>3-Month Warranty Min</p>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">★</div>
+                    <p>5★ Customer Reviews</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="find-us" id="find-us">
+        <div class="container">
+            <h2>Find Us</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 40px; font-size: 18px;">Looking for the perfect Car? Call us on: <a href="tel:07942280089" style="color: #007BFF; font-weight: 600; text-decoration: none;">07942 280089</a></p>
+            <div class="location-grid">
+                <div class="map-placeholder">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2478.8!2d-2.2!3d51.7!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTHCsDQyJzAwLjAiTiAywrAxMicwMC4wIlc!5e0!3m2!1sen!2suk!4v1234567890" width="100%" height="400" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+                <div class="location-info">
+                    <h3>Contact Us</h3>
+                    <div class="info-item">
+                        <h4>📍 Address</h4>
+                        <p>Puddlesworth Lane<br>Stonehouse,<br>South Gloucestershire,<br>GL10 3AH</p>
+                    </div>
+                    <div class="info-item">
+                        <h4>📞 Telephone</h4>
+                        <p><a href="tel:07942280089" style="color: #007BFF; text-decoration: none; font-weight: 600;">07942 280089</a></p>
+                    </div>
+                    <div class="info-item">
+                        <h4>✉ Email</h4>
+                        <p><a href="mailto:cotswoldvehicles@gmail.com" style="color: #007BFF; text-decoration: none; font-weight: 600;">cotswoldvehicles@gmail.com</a></p>
+                    </div>
+                    <div class="info-item">
+                        <h4>🕒 Opening Hours</h4>
+                        <table style="width: 100%; color: #666; font-size: 14px;">
+                            <tr><td><strong>Monday</strong></td><td style="text-align: right;">09:00 - 18:00</td></tr>
+                            <tr><td><strong>Tuesday</strong></td><td style="text-align: right;">09:00 - 18:00</td></tr>
+                            <tr><td><strong>Wednesday</strong></td><td style="text-align: right;">09:00 - 18:00</td></tr>
+                            <tr><td><strong>Thursday</strong></td><td style="text-align: right;">09:00 - 18:00</td></tr>
+                            <tr><td><strong>Friday</strong></td><td style="text-align: right;">09:00 - 18:00</td></tr>
+                            <tr><td><strong>Saturday</strong></td><td style="text-align: right;">Appointment Only</td></tr>
+                        </table>
+                        <p style="margin-top: 15px; font-weight: 600; color: #007BFF;">Viewing by appointment only</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="max-width: 600px; margin: 60px auto 0; background: #F9F9F9; padding: 40px; border-radius: 12px;">
+                <h3 style="text-align: center; margin-bottom: 30px; font-family: 'Montserrat', sans-serif; color: #007BFF; font-size: 28px;">Send Us An Enquiry</h3>
+                <form class="request-form">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="tel" placeholder="Your Telephone" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <textarea placeholder="Your Message" rows="4" style="padding: 15px; border: 1px solid #DDDDDD; border-radius: 5px; font-family: 'Inter', sans-serif; background: #FFFFFF; color: #333333; width: 100%; margin-bottom: 15px;"></textarea>
+                    <button type="submit" class="btn-primary">Send Enquiry</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>Cotswold Vehicle Sales</h3>
+                    <p>Small family business with over 30 years automotive industry experience</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li>📞 07942 280089</li>
+                        <li>✉ cotswoldvehicles@gmail.com</li>
+                        <li>📍 Puddlesworth Lane, Stonehouse</li>
+                        <li>GL10 3AH</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Opening Hours</h4>
+                    <ul>
+                        <li>Mon-Fri: 09:00 - 18:00</li>
+                        <li>Saturday: By Appointment</li>
+                        <li>Viewing: By Appointment Only</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li>Part Exchange</li>
+                        <li>Vehicle Finance</li>
+                        <li>Nationwide Delivery</li>
+                        <li>Extended Warranty</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+<p>© 2026 Cotswold Vehicle Sales. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

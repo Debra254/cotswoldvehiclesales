@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock - Cotswold Vehicle Sales</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav id="navbar" class="scrolled">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-text">
+                        <span class="logo-main">COTSWOLD</span>
+                        <span class="logo-sub">Vehicle Sales</span>
+                    </div>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#stocklist">Stocklist</a></li>
+                    <li><a href="index.html#request-car">Request A Car</a></li>
+                    <li><a href="index.html#sell-car">Sell Your Car</a></li>
+                    <li><a href="index.html#part-exchange">Part Exchange</a></li>
+                    <li><a href="index.html#about">About Us</a></li>
+                    <li><a href="index.html#reviews">Reviews</a></li>
+                    <li><a href="index.html#find-us">Find Us</a></li>
+                    <li><a href="admin.html" style="color: #007BFF; font-weight: 600;">Admin</a></li>
+                </ul>
+                <a href="index.html#find-us" class="cta-btn">Enquire Now</a>
+            </div>
+    </nav>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>Current Stock</h1>
+            <p>Browse our quality used vehicles</p>
+        </div>
+    </section>
+
+    <section class="inventory-section">
+        <div class="container">
+            <div class="filters">
+                <select><option>All Categories</option><option>Hatchback</option><option>SUV</option><option>Estate</option><option>Minibus</option><option>Pickup</option></select>
+                <select><option>All Fuel Types</option><option>Petrol</option><option>Diesel</option><option>Hybrid</option><option>Plug-in Hybrid</option></select>
+                <select><option>All Transmissions</option><option>Manual</option><option>Automatic</option></select>
+                <select><option>All Prices</option><option>Under £15k</option><option>£15k - £20k</option><option>Over £20k</option></select>
+                <button class="btn-primary" style="padding: 12px 30px;">Search</button>
+            </div>
+
+            <div class="vehicle-grid" id="inventoryGrid">
+                <!-- Vehicles will be loaded dynamically from localStorage -->
+            </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>Cotswold Vehicle Sales</h3>
+                    <p>Small family business with over 30 years automotive industry experience</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li>📞 07942 280089</li>
+                        <li>✉ cotswoldvehicles@gmail.com</li>
+                        <li>📍 Puddlesworth Lane, Stonehouse</li>
+                        <li>GL10 3AH</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Opening Hours</h4>
+                    <ul>
+                        <li>Mon-Fri: 09:00 - 18:00</li>
+                        <li>Saturday: By Appointment</li>
+                        <li>Viewing: By Appointment Only</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li>Part Exchange</li>
+                        <li>Vehicle Finance</li>
+                        <li>Nationwide Delivery</li>
+                        <li>Extended Warranty</li>
+                    </ul>
+                </div>
+            <div class="footer-bottom">
+<p>© 2026 Cotswold Vehicle Sales. All Rights Reserved.</p>
+            </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
