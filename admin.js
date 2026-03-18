@@ -2,8 +2,10 @@
 // Cotswold Vehicle Sales
 
 // Configuration
-const ADMIN_PASSWORD = 'cotswold2024';
+const OWNER_PASSWORD = 'owner2024';
+const MANAGER_PASSWORD = 'manager2024';
 const STORAGE_KEY = 'cotswold_admin_vehicles';
+const PENDING_KEY = 'cotswold_pending_actions';
 const DEFAULT_VEHICLES_KEY = 'cotswold_default_vehicles';
 
 // DOM Elements
@@ -20,7 +22,9 @@ const toastMessage = document.getElementById('toastMessage');
 
 // State
 let vehicles = [];
+let pendingActions = [];
 let deleteVehicleId = null;
+let currentRole = null;
 let currentFilter = 'all';
 
 // Initialize
@@ -33,7 +37,9 @@ document.addEventListener('DOMContentLoaded', function() {
 // Check authentication
 function checkAuth() {
     const isAuthenticated = sessionStorage.getItem('admin_auth');
-    if (isAuthenticated === 'true') {
+    const role = sessionStorage.getItem('admin_role');
+    if (isAuthenticated === 'true' && role) {
+        currentRole = role;
         showDashboard();
     }
 }
@@ -53,14 +59,24 @@ function clearLoginError() {
 // Login form submission
 loginForm.addEventListener('submit', function(e) {
     e.preventDefault();
+    const role = document.getElementById('adminRole').value;
     const password = document.getElementById('adminPassword').value;
     
-    if (password === ADMIN_PASSWORD) {
+    let isValid = false;
+    if (role === 'owner' && password === OWNER_PASSWORD) {
+        isValid = true;
+    } else if (role === 'manager' && password === MANAGER_PASSWORD) {
+        isValid = true;
+    }
+    
+    if (isValid) {
         sessionStorage.setItem('admin_auth', 'true');
+        sessionStorage.setItem('admin_role', role);
+        currentRole = role;
         clearLoginError();
         showDashboard();
     } else {
-        showLoginError('Incorrect password. Please try again.');
+        showLoginError('Invalid role or password.');
     }
 });
 
@@ -69,7 +85,26 @@ function showDashboard() {
     loginOverlay.style.display = 'none';
     adminDashboard.style.display = 'flex';
     loadVehicles();
+    loadPendingActions();
     updateDashboardStats();
+    updateRoleVisibility();
+}
+
+// Update role-based visibility
+function updateRoleVisibility() {
+    const pendingNav = document.querySelector('[data-section="pending-approvals"]');
+    if (currentRole === 'owner' && pendingNav) {
+        pendingNav.style.display = 'flex';
+    } else if (pendingNav) {
+        pendingNav.style.display = 'none';
+    }
+    
+    // Role badge
+    const roleBadge = document.getElementById('roleBadge');
+    if (roleBadge) {
+        roleBadge.textContent = currentRole.toUpperCase();
+        roleBadge.className = `role-badge role-${currentRole}`;
+    }
 }
 
 // Logout
@@ -144,7 +179,8 @@ function showSection(sectionName) {
     const sectionMap = {
         'dashboard': 'dashboardSection',
         'add-vehicle': 'addVehicleSection',
-        'manage-inventory': 'manageInventorySection'
+        'manage-inventory': 'manageInventorySection',
+        'pending-approvals': 'pendingApprovalsSection'
     };
     
     const targetSection = document.getElementById(sectionMap[sectionName]);
@@ -169,14 +205,23 @@ function loadVehicles() {
     vehicles = stored ? JSON.parse(stored) : [];
 }
 
+// Load pending actions
+function loadPendingActions() {
+    const stored = localStorage.getItem(PENDING_KEY);
+    pendingActions = stored ? JSON.parse(stored) : [];
+}
+
 // Save vehicles to localStorage
 function saveVehicles() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(vehicles));
 }
 
+function savePendingActions() {
+    localStorage.setItem(PENDING_KEY, JSON.stringify(pendingActions));
+}
+
 // Get all vehicles (admin + default)
 function getAllVehicles() {
-    // Return admin vehicles
     return [...vehicles];
 }
 
@@ -184,42 +229,81 @@ function getAllVehicles() {
 function handleAddVehicle(e) {
     e.preventDefault();
     
-    const newVehicle = {
-        id: Date.now(),
-        isAdminVehicle: true,
-        image: document.getElementById('vehicleImage').value,
-        brand: document.getElementById('vehicleBrand').value,
-        model: document.getElementById('vehicleModel').value,
-        year: document.getElementById('vehicleYear').value,
-        yearNum: parseInt(document.getElementById('vehicleYear').value),
-        price: '£' + parseInt(document.getElementById('vehiclePrice')).toLocaleString(),
-        priceNum: parseInt(document.getElementById('vehiclePrice').value),
-        mileage: document.getElementById('vehicleMileage').value,
-        fuel: document.getElementById('vehicleFuel').value,
-        transmission: document.getElementById('vehicleTransmission').value,
-        category: document.getElementById('vehicleCategory').value,
-        color: document.getElementById('vehicleColor').value,
-        title: document.getElementById('vehicleYear').value + ' ' + 
-               document.getElementById('vehicleBrand').value + ' ' + 
-               document.getElementById('vehicleModel').value,
-        description: (document.getElementById('vehicleColor').value || 'Vehicle') + ' | ' + 
-                    (document.getElementById('vehicleCategory').value || 'Car'),
-        seats: '5 Seats',
-        engine: '2.0L',
-        fullDescription: document.getElementById('vehicleBrand').value + ' ' + 
-                        document.getElementById('vehicleModel').value + '. ' +
-                        document.getElementById('vehicleFuel').value + ' vehicle with ' +
-                        document.getElementById('vehicleTransmission').value.toLowerCase() + ' transmission.',
-        features: ['Bluetooth', 'Air Conditioning', 'Parking Sensors']
-    };
+    if (currentRole !== 'owner') {
+        // Manager: add to pending
+        const action = {
+            id: Date.now(),
+            type: 'add',
+            timestamp: Date.now(),
+            byRole: currentRole,
+            vehicle: {
+                id: Date.now(),
+                isAdminVehicle: true,
+                image: document.getElementById('vehicleImage').value,
+                brand: document.getElementById('vehicleBrand').value,
+                model: document.getElementById('vehicleModel').value,
+                year: document.getElementById('vehicleYear').value,
+                yearNum: parseInt(document.getElementById('vehicleYear').value),
+                price: '£' + parseInt(document.getElementById('vehiclePrice')).toLocaleString(),
+                priceNum: parseInt(document.getElementById('vehiclePrice').value),
+                mileage: document.getElementById('vehicleMileage').value,
+                fuel: document.getElementById('vehicleFuel').value,
+                transmission: document.getElementById('vehicleTransmission').value,
+                category: document.getElementById('vehicleCategory').value,
+                color: document.getElementById('vehicleColor').value,
+                title: document.getElementById('vehicleYear').value + ' ' + 
+                       document.getElementById('vehicleBrand').value + ' ' + 
+                       document.getElementById('vehicleModel').value,
+                description: (document.getElementById('vehicleColor').value || 'Vehicle') + ' | ' + 
+                            (document.getElementById('vehicleCategory').value || 'Car'),
+                seats: '5 Seats',
+                engine: '2.0L',
+                fullDescription: document.getElementById('vehicleBrand').value + ' ' + 
+                                document.getElementById('vehicleModel').value + '. ' +
+                                document.getElementById('vehicleFuel').value + ' vehicle with ' +
+                                document.getElementById('vehicleTransmission').value.toLowerCase() + ' transmission.',
+                features: ['Bluetooth', 'Air Conditioning', 'Parking Sensors']
+            }
+        };
+        pendingActions.unshift(action);
+        savePendingActions();
+        showToast('Vehicle queued for owner approval!', 'success');
+    } else {
+        // Owner: direct add
+        const newVehicle = {
+            id: Date.now(),
+            isAdminVehicle: true,
+            image: document.getElementById('vehicleImage').value,
+            brand: document.getElementById('vehicleBrand').value,
+            model: document.getElementById('vehicleModel').value,
+            year: document.getElementById('vehicleYear').value,
+            yearNum: parseInt(document.getElementById('vehicleYear').value),
+            price: '£' + parseInt(document.getElementById('vehiclePrice')).toLocaleString(),
+            priceNum: parseInt(document.getElementById('vehiclePrice').value),
+            mileage: document.getElementById('vehicleMileage').value,
+            fuel: document.getElementById('vehicleFuel').value,
+            transmission: document.getElementById('vehicleTransmission').value,
+            category: document.getElementById('vehicleCategory').value,
+            color: document.getElementById('vehicleColor').value,
+            title: document.getElementById('vehicleYear').value + ' ' + 
+                   document.getElementById('vehicleBrand').value + ' ' + 
+                   document.getElementById('vehicleModel').value,
+            description: (document.getElementById('vehicleColor').value || 'Vehicle') + ' | ' + 
+                        (document.getElementById('vehicleCategory').value || 'Car'),
+            seats: '5 Seats',
+            engine: '2.0L',
+            fullDescription: document.getElementById('vehicleBrand').value + ' ' + 
+                            document.getElementById('vehicleModel').value + '. ' +
+                            document.getElementById('vehicleFuel').value + ' vehicle with ' +
+                            document.getElementById('vehicleTransmission').value.toLowerCase() + ' transmission.',
+            features: ['Bluetooth', 'Air Conditioning', 'Parking Sensors']
+        };
+        vehicles.push(newVehicle);
+        saveVehicles();
+        showToast('Vehicle added successfully!', 'success');
+    }
     
-    vehicles.push(newVehicle);
-    saveVehicles();
-    
-    showToast('Vehicle added successfully!', 'success');
     addVehicleForm.reset();
-    
-    // Switch to inventory view
     showSection('manage-inventory');
 }
 
@@ -333,39 +417,60 @@ function closeEditModal() {
 function handleEditVehicle(e) {
     e.preventDefault();
     
-    const vehicleId = parseInt(document.getElementById('editVehicleId').value);
-    const vehicleIndex = vehicles.findIndex(v => v.id === vehicleId);
-    
-    if (vehicleIndex === -1) {
-        showToast('Vehicle not found', 'error');
-        return;
+    if (currentRole !== 'owner') {
+        const vehicleId = parseInt(document.getElementById('editVehicleId').value);
+        const originalVehicle = vehicles.find(v => v.id === vehicleId);
+        if (!originalVehicle) {
+            showToast('Vehicle not found', 'error');
+            return;
+        }
+        const action = {
+            id: Date.now(),
+            type: 'edit',
+            timestamp: Date.now(),
+            byRole: currentRole,
+            targetId: vehicleId,
+            originalVehicle: {...originalVehicle},
+            changes: {
+                image: document.getElementById('editVehicleImage').value,
+                brand: document.getElementById('editVehicleBrand').value,
+                model: document.getElementById('editVehicleModel').value,
+                year: document.getElementById('editVehicleYear').value,
+                yearNum: parseInt(document.getElementById('editVehicleYear').value),
+                price: '£' + parseInt(document.getElementById('editVehiclePrice').value).toLocaleString(),
+                priceNum: parseInt(document.getElementById('editVehiclePrice').value),
+                mileage: document.getElementById('editVehicleMileage').value,
+                fuel: document.getElementById('editVehicleFuel').value,
+                transmission: document.getElementById('editVehicleTransmission').value,
+                category: document.getElementById('editVehicleCategory').value,
+                color: document.getElementById('editVehicleColor').value,
+                title: document.getElementById('editVehicleYear').value + ' ' + 
+                       document.getElementById('editVehicleBrand').value + ' ' + 
+                       document.getElementById('editVehicleModel').value,
+                description: (document.getElementById('editVehicleColor').value || 'Vehicle') + ' | ' + 
+                            (document.getElementById('editVehicleCategory').value || 'Car')
+            }
+        };
+        pendingActions.unshift(action);
+        savePendingActions();
+        showToast('Edit queued for owner approval!', 'success');
+    } else {
+        // Owner direct edit
+        const vehicleId = parseInt(document.getElementById('editVehicleId').value);
+        const vehicleIndex = vehicles.findIndex(v => v.id === vehicleId);
+        if (vehicleIndex === -1) {
+            showToast('Vehicle not found', 'error');
+            return;
+        }
+        vehicles[vehicleIndex] = {
+            ...vehicles[vehicleIndex],
+            ...changes
+        };
+        saveVehicles();
+        closeEditModal();
+        renderVehicleTable();
+        showToast('Vehicle updated successfully!', 'success');
     }
-    
-    vehicles[vehicleIndex] = {
-        ...vehicles[vehicleIndex],
-        image: document.getElementById('editVehicleImage').value,
-        brand: document.getElementById('editVehicleBrand').value,
-        model: document.getElementById('editVehicleModel').value,
-        year: document.getElementById('editVehicleYear').value,
-        yearNum: parseInt(document.getElementById('editVehicleYear').value),
-        price: '£' + parseInt(document.getElementById('editVehiclePrice').value).toLocaleString(),
-        priceNum: parseInt(document.getElementById('editVehiclePrice').value),
-        mileage: document.getElementById('editVehicleMileage').value,
-        fuel: document.getElementById('editVehicleFuel').value,
-        transmission: document.getElementById('editVehicleTransmission').value,
-        category: document.getElementById('editVehicleCategory').value,
-        color: document.getElementById('editVehicleColor').value,
-        title: document.getElementById('editVehicleYear').value + ' ' + 
-               document.getElementById('editVehicleBrand').value + ' ' + 
-               document.getElementById('editVehicleModel').value,
-        description: (document.getElementById('editVehicleColor').value || 'Vehicle') + ' | ' + 
-                    (document.getElementById('editVehicleCategory').value || 'Car')
-    };
-    
-    saveVehicles();
-    closeEditModal();
-    renderVehicleTable();
-    showToast('Vehicle updated successfully!', 'success');
 }
 
 // Open delete modal
@@ -385,37 +490,58 @@ function closeDeleteModal() {
 function confirmDelete() {
     if (!deleteVehicleId) return;
     
-    vehicles = vehicles.filter(v => v.id !== deleteVehicleId);
-    saveVehicles();
+    if (currentRole !== 'owner') {
+        // Manager: queue delete
+        const vehicle = vehicles.find(v => v.id === deleteVehicleId);
+        const action = {
+            id: Date.now(),
+            type: 'delete',
+            timestamp: Date.now(),
+            byRole: currentRole,
+            targetId: deleteVehicleId,
+            vehicleName: vehicle ? vehicle.title : 'Unknown'
+        };
+        pendingActions.unshift(action);
+        savePendingActions();
+        showToast('Delete queued for owner approval!', 'success');
+    } else {
+        // Owner direct delete
+        vehicles = vehicles.filter(v => v.id !== deleteVehicleId);
+        saveVehicles();
+        showToast('Vehicle deleted successfully!', 'success');
+    }
     
     closeDeleteModal();
     renderVehicleTable();
-    showToast('Vehicle deleted successfully!', 'success');
 }
 
 // Update dashboard stats
 function updateDashboardStats() {
-    const totalVehicles = getAllVehicles();
-    const adminVehicles = vehicles;
+    const totalVehicles = getAllVehicles().length;
+    const pendingCount = pendingActions.length;
+    const pendingCard = document.getElementById('pendingStatCard');
+    const adminCard = document.getElementById('adminStatCard');
     
-    // Total vehicles
-    document.getElementById('totalVehicles').textContent = adminVehicles.length;
+    // Common stats
+    document.getElementById('totalVehicles').textContent = totalVehicles;
     
-    // Total value
-    const totalValue = adminVehicles.reduce((sum, v) => sum + (v.priceNum || 0), 0);
+    const totalValue = vehicles.reduce((sum, v) => sum + (v.priceNum || 0), 0);
     document.getElementById('totalValue').textContent = '£' + totalValue.toLocaleString();
     
-    // Added this month
-    const thisMonth = new Date().getMonth();
-    const thisYear = new Date().getFullYear();
-    const addedThisMonth = adminVehicles.filter(v => {
-        const date = new Date(v.id);
-        return date.getMonth() === thisMonth && date.getFullYear() === thisYear;
-    }).length;
-    document.getElementById('addedThisMonth').textContent = addedThisMonth;
+    document.getElementById('addedThisMonth').textContent = totalVehicles;
     
-    // Admin vehicles count
-    document.getElementById('adminVehicles').textContent = adminVehicles.length;
+    if (currentRole === 'owner' && pendingCard && adminCard) {
+        // Owner: show pending + live
+        pendingCard.style.display = 'flex';
+        adminCard.querySelector('h3').textContent = 'Live Vehicles';
+        document.getElementById('pendingCount').textContent = pendingCount;
+        document.getElementById('adminVehicles').textContent = totalVehicles;
+    } else if (adminCard) {
+        // Manager: original stats
+        if (pendingCard) pendingCard.style.display = 'none';
+        adminCard.querySelector('h3').textContent = 'Admin Vehicles';
+        document.getElementById('adminVehicles').textContent = totalVehicles;
+    }
 }
 
 // View website
@@ -444,6 +570,83 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
+// Pending approval functions
+function renderPendingTable() {
+    const pendingTableBody = document.getElementById('pendingTableBody');
+    if (!pendingTableBody) return;
+    
+    pendingTableBody.innerHTML = pendingActions.map(action => {
+        let content = '';
+        if (action.type === 'add') {
+            const v = action.vehicle;
+            content = `
+                <tr>
+                    <td>New ${v.brand} ${v.model}</td>
+                    <td>${v.price}</td>
+                    <td><button class="btn-approve" onclick="approveAction(${action.id})">✅ Approve</button>
+                    <button class="btn-reject" onclick="rejectAction(${action.id})">❌ Reject</button></td>
+                </tr>
+            `;
+        } else if (action.type === 'edit') {
+            content = `
+                <tr>
+                    <td>Edit ${action.targetId}</td>
+                    <td>${action.changes.brand} ${action.changes.model}</td>
+                    <td><button class="btn-approve" onclick="approveAction(${action.id})">✅ Approve</button>
+                    <button class="btn-reject" onclick="rejectAction(${action.id})">❌ Reject</button></td>
+                </tr>
+            `;
+        } else if (action.type === 'delete') {
+            content = `
+                <tr>
+                    <td>Delete ${action.vehicleName}</td>
+                    <td>-</td>
+                    <td><button class="btn-approve" onclick="approveAction(${action.id})">✅ Approve</button>
+                    <button class="btn-reject" onclick="rejectAction(${action.id})">❌ Reject</button></td>
+                </tr>
+            `;
+        }
+        return content;
+    }).join('');
+}
+
+function approveAction(actionId) {
+    const actionIndex = pendingActions.findIndex(a => a.id === actionId);
+    const action = pendingActions[actionIndex];
+    if (actionIndex === -1) return;
+    
+    if (action.type === 'add') {
+        vehicles.push(action.vehicle);
+        saveVehicles();
+    } else if (action.type === 'edit') {
+        const vehicleIndex = vehicles.findIndex(v => v.id === action.targetId);
+        if (vehicleIndex !== -1) {
+            vehicles[vehicleIndex] = {...vehicles[vehicleIndex], ...action.changes};
+            saveVehicles();
+        }
+    } else if (action.type === 'delete') {
+        vehicles = vehicles.filter(v => v.id !== action.targetId);
+        saveVehicles();
+    }
+    
+    pendingActions.splice(actionIndex, 1);
+    savePendingActions();
+    renderPendingTable();
+    updateDashboardStats();
+    showToast('Action approved!', 'success');
+}
+
+function rejectAction(actionId) {
+    const actionIndex = pendingActions.findIndex(a => a.id === actionId);
+    if (actionIndex !== -1) {
+        pendingActions.splice(actionIndex, 1);
+        savePendingActions();
+        renderPendingTable();
+        updateDashboardStats();
+        showToast('Action rejected!', 'success');
+    }
+}
+
 // Make functions globally accessible
 window.showSection = showSection;
 window.openEditModal = openEditModal;
@@ -453,4 +656,7 @@ window.closeDeleteModal = closeDeleteModal;
 window.confirmDelete = confirmDelete;
 window.viewWebsite = viewWebsite;
 window.logout = logout;
+window.approveAction = approveAction;
+window.rejectAction = rejectAction;
+window.renderPendingTable = renderPendingTable;
 

@@ -178,6 +178,26 @@ body {
     letter-spacing: 2px;
 }
 
+.sidebar-header .role-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    background: var(--warning);
+    color: white;
+    font-size: 10px;
+    font-weight: 600;
+    border-radius: 12px;
+    margin-left: 10px;
+    text-transform: uppercase;
+}
+
+.role-owner {
+    background: var(--success);
+}
+
+.role-manager {
+    background: var(--warning);
+}
+
 .sidebar-nav {
     flex: 1;
     padding: 20px 15px;
@@ -601,6 +621,44 @@ body {
 }
 
 .btn-delete:hover {
+    background: #D50000;
+}
+
+.btn-approve {
+    padding: 8px 14px;
+    background: var(--success);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-approve:hover {
+    background: #00A843;
+}
+
+.btn-reject {
+    padding: 8px 14px;
+    background: var(--danger);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-reject:hover {
     background: #D50000;
 }
 
